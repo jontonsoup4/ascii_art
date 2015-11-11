@@ -11,7 +11,7 @@ class ASCIIArt:
         """
         self.picture_name = picture_name
         self.image = Image.open(picture_name)
-        self.scale = 7/ scale
+        self.scale = 7 / scale
         self.width = int(self.image.size[0] / self.scale)
         self.height = int(self.image.size[1] / (self.scale * 1.8))
         self.image = self.image.resize((self.width, self.height), Image.BILINEAR).convert("L")
@@ -29,6 +29,8 @@ class ASCIIArt:
             for x in range(0, self.image.size[0]):
                 brightness = 255 - self.image.getpixel((x, y))
                 row = int(brightness * len(char_list) / 255)
+                if row >= len(char_list):
+                    row = len(char_list) - 1
                 self.picture += char_list[row]
             self.picture += "\n"
         if lowpass > 0:
