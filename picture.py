@@ -33,5 +33,15 @@ class ASCIIPicture:
             self.img.save(save_name)
 
 
-    def show(self):
-        self.img.show()
+    def show(self, new_height=0):
+        """
+        :param new_height: optional parameter for new y size
+
+        """
+        if new_height == 0:
+            self.img.show()
+        else:
+            self.height = new_height
+            self.width = int(new_height * self.ratio)
+            self.img = self.img.resize((self.width, self.height), Image.BILINEAR)
+            self.img.show()

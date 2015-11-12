@@ -1,4 +1,5 @@
 from PIL import Image
+from math import log
 
 
 class ASCIIArt:
@@ -6,7 +7,7 @@ class ASCIIArt:
         """
         Converts an image to ASCII Art
         :param picture_name: path to picture name including extension
-        :param scale: 1/4
+        :param scale: 1 is roughly the original image size. Can be larger (3), can be smaller (1/4)
 
         """
         self.picture_name = picture_name
@@ -16,22 +17,27 @@ class ASCIIArt:
         self.height = int(self.image.size[1] / (self.scale * 1.8))
         self.image = self.image.resize((self.width, self.height), Image.BILINEAR).convert("L")
         self.picture = ""
-        self.grayscale = " .'`^\",:;Il!i><~+_-?][}{1)(|\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$"
+        self.grayscale = ".,:'`\";~-_|/=\<+>?)*^(!}{v[I&]wrcVisJmYe" \
+                         "joWn%Xtzux17lCFLT3fSZ2a@y4GOKMU#APk605Ed8Qb9NhBDHRqg$p"
 
-    def draw(self, char_list=' .:-=+*#%@', highpass=0, lowpass=0):
+    def draw(self, char_list=' .:-=+*#%@', highpass=0, lowpass=0, curve=1.2):
         """
         :param char_list: sets the characters used in ASCII rendering. Allows for custom char set
         :param highpass: 1 to 100 removes darker areas
-        :param lowpass: 1 to 100 removes lighter areas
+        :param lowpass: 1 to 100 removes lighter
+        :param curve: defaults to linear. curve > 1 is lighter. 1 > curve > 0 is darker. curve < 0 is grey
 
         """
         for y in range(0, self.image.size[1]):
             for x in range(0, self.image.size[0]):
                 brightness = 255 - self.image.getpixel((x, y))
-                row = int(brightness * len(char_list) / 255)
-                if row >= len(char_list):
-                    row = len(char_list) - 1
-                self.picture += char_list[row]
+                if curve < 1:
+                    choice = int(brightness * (len(char_list) / 255)**curve)
+                else:
+                    choice = int(len(char_list)*(brightness/255)**curve)
+                if choice >= len(char_list):
+                    choice = len(char_list) - 1
+                self.picture += char_list[choice]
             self.picture += "\n"
         if lowpass > 0:
             lowpass = int(lowpass * len(char_list) / 100)
@@ -43,10 +49,14 @@ class ASCIIArt:
                 self.picture = self.picture.replace((char_list[-i]), ' ')
         return self.picture
 
-    def full_range(self, limiter=0):
-        self.draw(self.grayscale, limiter)
+    def full_range(self, highpass=0, lowpass=0, curve=1.2):
+        self.draw(self.grayscale, highpass, lowpass, curve)
         return self.picture
 
-    def half_range(self, limiter=0):
-        self.draw(self.grayscale[::2], limiter)
+    def half_range(self, highpass=0, lowpass=0, curve=1.2):
+        self.draw(self.grayscale[::2], highpass, lowpass, curve)
         return self.picture
+
+    def sort_grayscale(self, char_list):
+        output = [x for (y, x) in sorted(zip(self.grayscale.lower(), char_list))]
+        return ''.join(output)
