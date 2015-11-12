@@ -17,7 +17,7 @@ class ASCIIArt:
         self.height = int(self.image.size[1] / (self.scale * 1.8))
         self.image = self.image.resize((self.width, self.height), Image.BILINEAR).convert("L")
         self.picture = ""
-        self.grayscale = ".,:'`\";~-_|/=\<+>?)*^(!}{v[I&]wrcVisJmYe" \
+        self.grayscale = " .,:'`\";~-_|/=\<+>?)*^(!}{v[I&]wrcVisJmYe" \
                          "joWn%Xtzux17lCFLT3fSZ2a@y4GOKMU#APk605Ed8Qb9NhBDHRqg$p"
 
     def draw(self, char_list=' .:-=+*#%@', highpass=0, lowpass=0, curve=1.2):
