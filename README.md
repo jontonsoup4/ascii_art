@@ -15,8 +15,8 @@ with open('cat_draw.txt', 'w') as f:
 
 ##Before
 ![Before](https://github.com/jontonsoup4/ascii_art/blob/master/examples/cat.jpg)
-##After
-![After](https://github.com/jontonsoup4/ascii_art/blob/master/examples/cat_draw.jpg)
+##After 
+![After](https://github.com/jontonsoup4/ascii_art/blob/master/examples/cat_scale5_draw.png)
 
 #Dependencies
 `Pillow==3.0.0`
