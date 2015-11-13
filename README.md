@@ -18,5 +18,8 @@ with open('cat_draw.txt', 'w') as f:
 ##After 
 ![After](https://github.com/jontonsoup4/ascii_art/blob/master/examples/cat_scale5_draw.png)
 
+#Setup
+`python3 setup.py install`
+
 #Dependencies
 `Pillow==3.0.0`
