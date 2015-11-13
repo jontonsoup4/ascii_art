@@ -1,5 +1,4 @@
 from PIL import Image
-from math import log
 
 
 class ASCIIArt:
@@ -32,9 +31,9 @@ class ASCIIArt:
             for x in range(0, self.image.size[0]):
                 brightness = 255 - self.image.getpixel((x, y))
                 if curve < 1:
-                    choice = int(brightness * (len(char_list) / 255)**curve)
+                    choice = int(brightness * (len(char_list) / 255) ** curve)
                 else:
-                    choice = int(len(char_list)*(brightness/255)**curve)
+                    choice = int(len(char_list) * (brightness / 255) ** curve)
                 if choice >= len(char_list):
                     choice = len(char_list) - 1
                 self.picture += char_list[choice]
@@ -58,5 +57,9 @@ class ASCIIArt:
         return self.picture
 
     def sort_grayscale(self, char_list):
-        output = [x for (y, x) in sorted(zip(self.grayscale.lower(), char_list))]
+        output = []
+        for i in char_list:
+            output.append([i, self.grayscale.index(i)])
+        output = [x for (x, y) in sorted(output, key=lambda x: x[1])]
         return ''.join(output)
+
