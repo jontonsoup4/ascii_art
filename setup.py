@@ -2,7 +2,7 @@ from distutils.core import setup
 
 if __name__ == "__main__":
     setup(name='ascii_art',
-          version='0.1.1',
+          version='0.2.0',
           description='Image to ASCII art generator',
           author='Jonathan Reed',
           author_email='jontonsoup4@gmail.com',
