@@ -25,11 +25,11 @@ colored_picture = ASCIIArt('cat', 5).draw_color_ascii(ASCIIArt.sort('jontonsoup4
 ASCIIPicture(colored_picture, 'black').save('cat_scale5_color_name')
 
 # ASCII to HTML using 'kitten' as a character set on a black background
-html = ASCIIArt('cat', 1).draw_html('kitten', background_color='black')
+html = ASCIIArt('cat', 1).draw_html(ASCIIArt.sort('kitten'), background_color='black')
 with open('cat_scale1_html_kitten.html', 'w') as f:
     f.write(''.join(html))
 
-html = ASCIIArt('cat', 2).draw_html('kitten', background_color='black')
+html = ASCIIArt('cat', 2).draw_html(ASCIIArt.sort('kitten'), background_color='black')
 with open('cat_scale2_html_kitten.html', 'w') as f:
     f.write(''.join(html))
 
